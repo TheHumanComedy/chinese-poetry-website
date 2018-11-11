@@ -6,7 +6,7 @@ let mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 // 定义 LinksSchema 数据表和数据结构
-const TangShiSchema = new mongoose.Schema({
+const TangSchema = new mongoose.Schema({
   author: {
     type: String,
     required: true
@@ -22,4 +22,4 @@ const TangShiSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('TangShi', TangShiSchema)
+module.exports = mongoose.model('Tang', TangSchema)
