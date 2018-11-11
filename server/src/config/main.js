@@ -11,7 +11,7 @@ let config = {
   secret: 'super-secret-passphrase',
 
   // Database connection information
-  database: `mongodb://${dbhost}:27017/awesome-webapp`,
+  database: `mongodb://${dbhost}:27017/poetry`,
 
   // Setting port for server
   port: process.env.PORT || 4000,

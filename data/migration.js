@@ -1,12 +1,12 @@
 const fs = require('fs')
 const glob = require('glob')
 
-const Author = require('../server/src/models/authorModel')
+const Authors = require('../server/src/models/authorsModel')
 const Tang = require('../server/src/models/tangModel')
 const Song = require('../server/src/models/songModel')
 
 const songAuthors = require('../poetry/json/authors.song.json')
-const tangAuthors = require('../poetry/json/tang.song.json')
+const tangAuthors = require('../poetry/json/authors.tang.json')
 
 /**
  * 保存某个朝代的作者列表
@@ -16,24 +16,25 @@ const tangAuthors = require('../poetry/json/tang.song.json')
  */
 function save (authors, dynasty) {
   authors.forEach(author => {
-    new Author({
-      ...author,
+    new Authors({
+      desc: author.desc || 'N/A',
+      name: author.name || 'N/A',
       dynasty
     }).save(err => {
       if (err) {
-        console.log('Failed at', data.name, err);
+        console.log('Failed at', author.name, err);
       } else {
-        console.log('Saved', data.name);
+        console.log('Saved', author.name);
       }
     })
   })
 }
 
-save(songAuthors, 'song')
-save(tangAuthors, 'tang')
+save(songAuthors, 'Song')
+save(tangAuthors, 'Tang')
 
 const jsonList = glob.sync('../poetry/json/*+(song|tang)*.json')
-jsonList.forEach(jsonfile => {
+jsonList.slice(0,2).forEach(jsonfile => {
   const poetries = JSON.parse(fs.readFileSync(jsonfile, 'utf-8'))
   const dynasty = jsonfile.split('.')[1]
   poetries.forEach(poetry => {
