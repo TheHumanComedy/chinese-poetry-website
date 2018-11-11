@@ -1,5 +1,5 @@
 let Router = require('koa-router')
-let LinksCtrl = require('../controllers/linksCtrl')
+let LinksCtrl = require('../controllers/poetryCtrl')
 let AuthController = require('../controllers/authCtrl')
 let HelpController = require('../controllers/helpCtrl')
 
@@ -39,17 +39,11 @@ router.get('/index', async (ctx, next) => {
   ctx.body = content
 })
 
-router.get('/getNiceLinks', LinksCtrl.getNiceLinks)
+router.get('/pullPoetry', LinksCtrl.getNiceLinks)
 
-router.post('/addNiceLinks', LinksCtrl.addNiceLinks)
+router.post('/savePoetry', LinksCtrl.addNiceLinks)
 
-router.post('/updateNiceLinks', LinksCtrl.updateNiceLinks)
-
-router.post('/deleteNiceLinks', LinksCtrl.deleteNiceLinks)
-
-router.get('/getAllLinks', LinksCtrl.getAllLinks)
-
-router.get('/getAllLinksCount', LinksCtrl.getAllLinksCount)
+router.get('/getAllPoetryCount', LinksCtrl.getAllPoetryCount)
 // *********************Login Auth Register********************** Strat//
 
 // Registration route
