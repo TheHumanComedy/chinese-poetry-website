@@ -14,7 +14,7 @@ let config = {
   database: `mongodb://${dbhost}:27017/poetry`,
 
   // Setting port for server
-  port: process.env.PORT || 4000,
+  port: process.env.PORT || 6000,
 
   redis: {
     session: {
