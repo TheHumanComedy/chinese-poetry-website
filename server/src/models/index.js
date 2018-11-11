@@ -18,5 +18,7 @@ function connectDatabase(uri) {
 
 connectDatabase(config.main.database)
 
-exports.Links = require('./linksModel')
+exports.Author = require('./authorModel')
+exports.TangShi = require('./tangShiModel')
+exports.SongCi = require('./songCiModel')
 exports.UserModel = require('./userModel')
