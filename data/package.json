@@ -1,0 +1,14 @@
+{
+  "name": "data-migration",
+  "version": "0.0.1",
+  "description": "data migration",
+  "main": "migration.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "glob": "^7.1.3"
+  }
+}
