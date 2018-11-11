@@ -9,7 +9,6 @@
     "start": "lerna exec --scope -- yarn start",
     "commit": "git add . && git commit -a && git push",
     "deploy": "docker-compose down && docker-compose up",
-    "migration": "node ./data/migration.js",
     "eslint-fix": "eslint src/**/**/*.vue --fix",
     "format-code": "npm run format-client & npm run format-server",
     "format-client": "prettier-eslint --write \"client/src/**/*.js\" \"client/src/**/*.vue\"",

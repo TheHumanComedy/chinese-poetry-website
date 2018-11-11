@@ -1,9 +1,11 @@
 const fs = require('fs')
 const glob = require('glob')
 
-const Authors = require('../server/src/models/authorsModel')
-const Tang = require('../server/src/models/tangModel')
-const Song = require('../server/src/models/songModel')
+const {
+  Authors,
+  Tang,
+  Song
+} = require('./../server/src/models')
 
 const songAuthors = require('../poetry/json/authors.song.json')
 const tangAuthors = require('../poetry/json/authors.tang.json')
@@ -38,16 +40,20 @@ jsonList.slice(0,2).forEach(jsonfile => {
   const poetries = JSON.parse(fs.readFileSync(jsonfile, 'utf-8'))
   const dynasty = jsonfile.split('.')[1]
   poetries.forEach(poetry => {
-    let Poetry = Song
-    if (dynasty === 'tang') {
-      Poetry = Tang
-    }
-    new Poetry(poetry).save(err => {
-      if (err) {
-        console.log('Failed at', data.title, err);
-      } else {
-        console.log('Save', data.title);
+    if (poetry.title && poetry.author && poetry.paragraphs) {
+      const params = {
+        title: poetry.title,
+        author: poetry.author,
+        paragraphs: poetry.paragraphs
       }
-    })
+      let Poetry = dynasty === 'tang' ? Tang : Song
+      new Poetry(params).save(err => {
+        if (err) {
+          console.log('Failed at', poetry.title, err);
+        } else {
+          console.log('Saved', poetry.title);
+        }
+      })
+    }
   })
 })
