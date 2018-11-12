@@ -51,15 +51,22 @@ function savePoetry(poetry, dynasty) {
   })
 }
 
+let saved = []
+if (fs.existsSync('./saved.json')) {
+  saved = require('./saved.json')
+}
 /**
  * @desc 保存某个朝代的作品列表
  */
 const jsonList = glob.sync('../poetry/poetry/poet.+(song|tang)*.json')
-jsonList.forEach(async jsonfile => {
-  let poetries = JSON.parse(fs.readFileSync(jsonfile, 'utf-8'))
-  const dynasty = jsonfile.includes('song') ? 'song' : 'tang'
-  poetries.forEach(async poetry => {
-    console.log(`✓ Saving (dynasty = ${dynasty})`, poetry.title)
-    await savePoetry(poetry, dynasty)
-  })
-})
+jsonList
+  .filter(file => !saved.includes(file))
+  .forEach(async jsonfile => 
+    let poetries = JSON.parse(fs.readFileSync(jsonfile, 'utf-8'))
+    const dynasty = jsonfile.includes('song') ? 'song' : 'tang'
+    poetries.forEach(async poetry => {
+      console.log(`✓ Saving (dynasty = ${dynasty})`, poetry.title)
+      await savePoetry(poetry, dynasty)
+      saved.push(file)
+      fs.writeFileSync('./save.json', JSON.stringify(saved))
+    })
