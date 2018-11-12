@@ -2,8 +2,8 @@ const fs = require('fs')
 const glob = require('glob')
 const { Authors, Tang, Song } = require('./../server/src/models')
 
-const songAuthors = require('../poetry/json/authors.song.json')
-const tangAuthors = require('../poetry/json/authors.tang.json')
+const songAuthors = require('../poetry/poetry/authors.song.json')
+const tangAuthors = require('../poetry/poetry/authors.tang.json')
 
 /**
  * @desc 保存某个朝代的作者列表
@@ -20,7 +20,7 @@ function saveAuthors(authors, dynasty) {
       if (err) {
         console.log('🐛 Failed At', author.name, err)
       } else {
-        console.log('✓ Author Saved', author.name)
+        console.log(`✓ Author Saved (dynasty = ${dynasty})`, author.name)
       }
     })
   })
@@ -43,7 +43,7 @@ function savePoetry(poetry, dynasty) {
           console.log('🐛 Failed At', poetry.title, err)
           reject()
         } else {
-          console.log('✓ Poetry Saved', poetry.title)
+          console.log(`✓ Poetry Saved (dynasty = ${dynasty})`, poetry.title)
           resolve()
         }
       })
@@ -54,12 +54,12 @@ function savePoetry(poetry, dynasty) {
 /**
  * @desc 保存某个朝代的作品列表
  */
-const jsonList = glob.sync('../poetry/json/poet.+(song|tang)*.json')
-jsonList.slice(0, 2).forEach(async jsonfile => {
+const jsonList = glob.sync('../poetry/poetry/poet.+(song|tang)*.json')
+jsonList.forEach(async jsonfile => {
   let poetries = JSON.parse(fs.readFileSync(jsonfile, 'utf-8'))
-  const dynasty = jsonfile.split('.')[1]
+  const dynasty = jsonfile.includes('song') ? 'song' : 'tang'
   poetries.forEach(async poetry => {
-    console.log('✓ Saving', poetry.title)
+    console.log(`✓ Saving (dynasty = ${dynasty})`, poetry.title)
     await savePoetry(poetry, dynasty)
   })
 })

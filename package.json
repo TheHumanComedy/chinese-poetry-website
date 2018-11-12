@@ -17,7 +17,8 @@
     "client:start": "lerna exec --scope client -- yarn start",
     "client:build": "lerna exec --scope client -- yarn build",
     "server:start": "lerna exec --scope server -- yarn start",
-    "server:build": "lerna exec --scope client -- yarn build"
+    "server:build": "lerna exec --scope client -- yarn build",
+    "data:start": "lerna exec --scope data -- yarn start"
   },
   "keywords": [
     "docker",

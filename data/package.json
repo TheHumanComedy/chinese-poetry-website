@@ -1,11 +1,11 @@
 {
-  "name": "data-migration",
+  "name": "data",
   "version": "0.0.1",
   "description": "data migration",
   "main": "migration.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migration": "NODE_ENV=development node ./migration.js"
+    "start": "NODE_ENV=development node ./migration.js"
   },
   "author": "",
   "license": "ISC",

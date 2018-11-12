@@ -2,7 +2,8 @@
   "lerna": "3.0.3",
   "packages": [
     "client",
-    "server"
+    "server",
+    "data"
   ],
   "ignoreChanges": [
     "**/__tests__/**",
