@@ -1,9 +1,9 @@
 <p align="center"><a href="https://nicelins.site?from=github" target="_blank"><img width="300"src="https://raw.githubusercontent.com/nicejade/docker-vue-node-nginx-mongodb-redis/master/client/src/assets/images/docker-vue-node-nginx-mongodb-redis-dragon.png"></a></p>
 
-<h1 align="center">Docker Vue Node Nginx Mongodb Redis</h1>
+<h1 align="center">🚧 中华古诗数据库接口</h1>
 
 <div align="center">
-🐉 An awesome boilerplate, Integrated <strong>Docker</strong>, <strong>Vue</strong>, <strong>Node</strong>, <strong>Nginx</strong>, <strong>Mongodb</strong> and <strong>Redis</strong> in one, Designed to develop & build your web applications more efficient and elegant.
+  🗝 中华古诗数据库接口( Mongodb + Node.js )，接近 5.5 万首唐诗加 26 万宋诗，以及万余唐宋诗人；数据源于 <a href="https://github.com/chinese-poetry/chinese-poetry-zhCN">chinese-poetry-zhCN</a>；模板出自 <a href="https://github.com/nicejade/docker-vue-node-nginx-mongodb-redis">docker-vue-node-nginx-mongodb-redis</a>。
 </div>
 
 <br>
@@ -18,7 +18,7 @@
   <a href="https://github.com/nicejade/docker-vue-node-nginx-mongodb-redis">
     <img src="https://img.shields.io/github/package-json/v/nicejade/docker-vue-node-nginx-mongodb-redis.svg" alt="LICENSE">
   </a>
-  <a href="https://about.me/nicejade"><img src="https://img.shields.io/badge/Author-nicejade-%23a696c8.svg" alt="Author nicejade"></a>
+  <a href="https://about.me/nicejade"><img src="https://img.shields.io/badge/Author-nicejade-%23a696c8.svg" alt="Author 纵横客"></a>
 </div>
 
 ## Features
@@ -47,6 +47,17 @@ yarn start
 # Or Run the following commands in the terminal two different TAB
 cd client && yarn start
 cd server && yarn start
+```
+
+## Migrate Data
+
+```bash
+# download data souruce
+git submodule update --init
+
+# if you change the submodule url
+# git submodule update --init --recursive --remote
+yarn data:start
 ```
 
 The program will automatically open http://localhost:8080/ for client and http://localhost:4000/ for server. Intelligently, it will specify the available port for you (incremental, eg: `8081` or `8082`) if port `8080` is busying on your machine.
