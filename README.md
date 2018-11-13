@@ -12,13 +12,13 @@
   <a href="https://nodejs.org/en/">
     <img src="https://img.shields.io/badge/node-%3E%3D%206.11.5-brightgreen.svg" alt="NodeJs">
   </a>
-  <a href="https://github.com/nicejade/docker-vue-node-nginx-mongodb-redis">
-    <img src="https://img.shields.io/github/license/nicejade/docker-vue-node-nginx-mongodb-redis.svg" alt="LICENSE">
+  <a href="https://github.com/TheHumanComedy/chinese-poetry-api">
+    <img src="https://img.shields.io/github/license/TheHumanComedy/chinese-poetry-api.svg" alt="LICENSE">
   </a>
-  <a href="https://github.com/nicejade/docker-vue-node-nginx-mongodb-redis">
-    <img src="https://img.shields.io/github/package-json/v/nicejade/docker-vue-node-nginx-mongodb-redis.svg" alt="LICENSE">
+  <a href="https://github.com/TheHumanComedy/chinese-poetry-api">
+    <img src="https://img.shields.io/github/package-json/v/TheHumanComedy/chinese-poetry-api.svg" alt="LICENSE">
   </a>
-  <a href="https://about.me/nicejade"><img src="https://img.shields.io/badge/Author-nicejade-%23a696c8.svg" alt="Author 纵横客"></a>
+  <a href="https://github.com/TheHumanComedy"><img src="https://img.shields.io/badge/Author-纵横客-%23a696c8.svg" alt="Author 纵横客"></a>
 </div>
 
 ## Features
@@ -36,9 +36,9 @@
 
 ```bash
 # 🎉 clone the project
-git clone https://github.com/nicejade/docker-vue-node-nginx-mongodb-redis.git
+git clone https://github.com/TheHumanComedy/chinese-poetry-api.git
 # ➕ install dependencies
-cd docker-vue-node-nginx-mongodb-redis
+cd chinese-poetry-api
 yarn && yarn bootstrap
 
 # 🚧 start developing
@@ -56,6 +56,7 @@ cd server && yarn start
 git submodule update --init
 
 # if you change the submodule url
+# git submodule sync
 # git submodule update --init --recursive --remote
 yarn data:start
 ```
@@ -90,4 +91,4 @@ docker-compose up
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2018-present, [nicejade](https://about.me/nicejade/).
+Copyright (c) 2018-present, [纵横客](https://github.com/TheHumanComedy).
