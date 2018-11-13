@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "glob": "^7.1.3"
+  },
+  "dependencies": {
+    "async": "^2.6.1"
   }
 }

@@ -1,18 +1,19 @@
 const fs = require('fs')
 const glob = require('glob')
-const { Authors, Tang, Song } = require('./../server/src/models')
+const AsyncMapLimit = require('async/mapLimit')
 
-const songAuthors = require('../poetry/poetry/authors.song.json')
-const tangAuthors = require('../poetry/poetry/authors.tang.json')
+const { Authors, Tang, Song } = require('./../server/src/models')
+let songAuthors = require('../poetry/poetry/authors.song.json')
+let tangAuthors = require('../poetry/poetry/authors.tang.json')
 
 /**
  * @desc 保存某个朝代的作者列表
  * @param {Array<Author>} authors - 作者列表
  * @param {String} dynasty - 朝代
  */
-function saveAuthors(authors, dynasty) {
-  authors.forEach(author => {
-    new Authors({
+function saveAuthorIntoDb(authors, dynasty) {
+  authors.forEach(async author => {
+    await new Authors({
       desc: author.desc || 'N/A',
       name: author.name || 'N/A',
       dynasty
@@ -24,12 +25,10 @@ function saveAuthors(authors, dynasty) {
       }
     })
   })
+  authors = null
 }
 
-saveAuthors(songAuthors, 'Song')
-saveAuthors(tangAuthors, 'Tang')
-
-function savePoetry(poetry, dynasty) {
+function savePoetryInfoDb(poetry, dynasty) {
   return new Promise((resolve, reject) => {
     if (poetry.title && poetry.author && poetry.paragraphs) {
       const params = {
@@ -51,22 +50,53 @@ function savePoetry(poetry, dynasty) {
   })
 }
 
-let saved = []
-if (fs.existsSync('./saved.json')) {
-  saved = require('./saved.json')
+const $waitForTimeout = (delay) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(true)
+      } catch (e) {
+        reject(false)
+      }
+    }, delay)
+  })
 }
-/**
- * @desc 保存某个朝代的作品列表
- */
-const jsonList = glob.sync('../poetry/poetry/poet.+(song|tang)*.json')
-jsonList
-  .filter(file => !saved.includes(file))
-  .forEach(async jsonfile => 
+
+function traversePoetrysList(poetries, dynasty) {
+  return new Promise((resolve, reject) => {
+    try {
+      poetries.forEach(async poetry => {
+        console.log(`🚧  Saving Poetry (dynasty = ${dynasty})`, poetry.title)
+        await $waitForTimeout(20)
+        await savePoetryInfoDb(poetry, dynasty)
+      })
+      poetries = null
+      resolve(0)
+    } catch (err) {
+      console.log(`❌ Something went wrong[@traversePoetrysList]: ${err}`)
+      reject(err)
+    }
+  })
+}
+
+async function main () {
+  saveAuthorIntoDb(songAuthors, 'Song')
+  songAuthors = null
+  await $waitForTimeout(1314)
+
+  saveAuthorIntoDb(tangAuthors, 'Tang')
+  tangAuthors = null
+  await $waitForTimeout(1314)
+
+  const poetryJsonList = glob.sync('../poetry/poetry/poet.+(song|tang)*.json')
+  AsyncMapLimit(poetryJsonList, 1, async jsonfile => {
+    await $waitForTimeout(1314)
     let poetries = JSON.parse(fs.readFileSync(jsonfile, 'utf-8'))
     const dynasty = jsonfile.includes('song') ? 'song' : 'tang'
-    poetries.forEach(async poetry => {
-      console.log(`✓ Saving (dynasty = ${dynasty})`, poetry.title)
-      await savePoetry(poetry, dynasty)
-      saved.push(file)
-      fs.writeFileSync('./save.json', JSON.stringify(saved))
-    })
+    await traversePoetrysList(poetries, dynasty)
+  }, err => {
+    if (err) throw err
+  })
+}
+
+main()
