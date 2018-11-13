@@ -4,6 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const SizePlugin = require('size-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 const isProductionEnvFlag = process.env.NODE_ENV === 'production'
 
@@ -66,6 +67,7 @@ module.exports = {
       .set('@pages', resolveRealPath('src/pages'))
       .set('@assets', resolveRealPath('src/assets'))
       .set('@router', resolveRealPath('src/router'))
+      .set('@mixins', resolveRealPath('src/mixins'))
       .set('@components', resolveRealPath('src/components'))
 
     // remove the old loader & add new one
@@ -131,6 +133,8 @@ module.exports = {
         // Required - Routes to render.
         routes: ['/', '/explore']
       }) : () => {},
+      // NEED FIX 🚧 : HardSourceWebpackPlugin Will Cause Error.
+      // new HardSourceWebpackPlugin(),
       isProductionEnvFlag ? new SizePlugin() : () => {}
     ]
   },
@@ -143,16 +147,23 @@ module.exports = {
   // see => https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
   // https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
   pwa: {
-    name: 'App Name',
+    name: 'Vue-Cli3 实践',
     themeColor: '#4DBA87',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    iconPaths: {
+      favicon32: 'img/icons/fuji-mountain-32x32.png',
+      favicon16: 'img/icons/fuji-mountain-16x16.png',
+      appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
+      maskIcon: 'img/icons/safari-pinned-tab.svg',
+      msTileImage: 'img/icons/msapplication-icon-144x144.png',
+    },
     // configure the workbox plugin (GenerateSW or InjectManifest)
-    workboxPluginMode: 'generateSW',
+    workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       // swSrc is required in InjectManifest mode.
-      // swSrc: 'dev/sw.js',
+      swSrc: 'public/service-worker.js',
       // ...other Workbox options...
     }
   },
@@ -165,13 +176,7 @@ module.exports = {
     https: false,
     hotOnly: false,
     // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4000/',
-        changeOrigin: true,
-        ws: true
-      }
-    }, // string | Object
+    proxy: null, // string | Object
     before: app => {}
   },
 
