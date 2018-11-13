@@ -20,12 +20,12 @@ let config = {
     session: {
       host: `${redishost}`,
       port: 6379,
-      db: 0
+      db: 2
     },
     client: {
       host: `${redishost}`,
       port: 6379,
-      db: 1
+      db: 3
     }
   },
 

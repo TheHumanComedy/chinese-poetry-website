@@ -6,38 +6,27 @@ let $util = require('../helper/util')
 let _ = require('lodash')
 
 /*------------------------------api---------------------------*/
-
-exports.pullPoetry = async (ctx, next) => {
-  let options = $util.getQueryObject(ctx.request.url)
-  let params = {}
-  let sortParam = {}
-
-  let limitNumber = parseInt(options.pageSize)
-  let skipNumber = (parseInt(options.pageCount) - 1) * limitNumber
+exports.getRandomPoetry = async (ctx, next) => {
   try {
-    return await Links.find(params)
-      .sort(sortParam)
-      .limit(limitNumber)
-      .skip(skipNumber)
-      .exec()
-      .then(async result => {
-        /* ----------------------@Add Default----------------------*/
-        if (result.length <= 0) {
-          result.push({
-          })
-        }
-        $util.sendSuccess(ctx, result)
-      })
+    const options = ctx.request.body
+    const Cmodels = options.dynasty === 'tang' ? Tang : Song
+    return await Cmodels.aggregate([
+      // { $match: { active: true } },
+      { $sample: { size: options.size || 10 } }
+    ]).then(async result => {
+      console.log(result)
+      $util.sendSuccess(ctx, result)
+    })
   } catch (error) {
-    $util.sendFailure(ctx, null, 'Opps, Something Error :' + error)
+    return  $util.sendFailure(ctx, null, 'Opps, Something Error :' + error)
   }
 }
 
 exports.savePoetry = async (ctx, next) => {
-  let options = ctx.request.body
-  const cmodels = options.dynasty === 'tang' ? Tang : Song
   try {
-    return await cmodels.create(options).then(async result => {
+    const options = ctx.request.body
+    const Cmodels = options.dynasty === 'tang' ? Tang : Song
+    return await Cmodels.create(options).then(async result => {
       $util.sendSuccess(ctx, result)
     })
   } catch (error) {
