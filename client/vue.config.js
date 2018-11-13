@@ -177,8 +177,14 @@ module.exports = {
     port: 8080,
     https: false,
     hotOnly: false,
-    // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-    proxy: null, // string | Object
+    // See https://cli.vuejs.org/zh/config/#devserver-proxy
+    proxy: {
+      '/api': {
+        target: 'http://localhost:6000',
+        ws: true,
+        changeOrigin: true
+      }
+    }, // string | Object
     before: app => {}
   },
 

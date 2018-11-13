@@ -57,6 +57,7 @@ export default {
 
 <style lang="scss">
 .advertisement-moudle {
+  min-width: 500px;
   margin-bottom: 6 * $size-factor;
   .text-center {
     text-align: center;

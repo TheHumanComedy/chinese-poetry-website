@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import Advertisement from '@components/Advertisement'
+
 
 export default {
   data() {
