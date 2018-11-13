@@ -6,7 +6,7 @@ services:
     image: node:8.12.0
     restart: on-failure
     ports:
-      - "4000:4000"
+      - "6000:6000"
     links:
       - mongodb
       - redis
@@ -14,28 +14,11 @@ services:
       - mongodb
       - redis
     volumes:
-      - ./server:/home/node/awesome-webapp/
-    working_dir: /home/node/awesome-webapp
+      - ./server:/home/node/poetry-app/
+    working_dir: /home/node/poetry-app
     command: yarn server
     networks:
       - backend
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100MB"
-        max-file: "3"
-
-  nginx:
-    image: nginx:1.15.3
-    depends_on:
-      - server
-    networks:
-      - backend
-    volumes:
-      - ./server/public:/home/node/awesome-webapp/public/
-      - ./nginx/default.conf:/etc/nginx/conf.d/awesome-webapp.conf
-    ports:
-      - "8888:8888"
     logging:
       driver: "json-file"
       options:
