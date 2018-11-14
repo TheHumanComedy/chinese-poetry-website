@@ -3,7 +3,7 @@ node_modules
 
 # server
 server/node_modules
-server/public
+# server/public
 server/yarn-debug.log*
 
 # client
