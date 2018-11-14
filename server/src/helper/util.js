@@ -212,6 +212,7 @@ module.exports = {
     const ignoreApiList = [
       'crawlLinksInfo',
       'getRandomPoetry',
+      'getMorePoetry',
       'getUserInfo',
       'getProfile'
     ]

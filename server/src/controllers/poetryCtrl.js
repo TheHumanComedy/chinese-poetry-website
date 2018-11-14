@@ -6,6 +6,23 @@ let $util = require('../helper/util')
 let _ = require('lodash')
 
 /*------------------------------api---------------------------*/
+exports.getMorePoetry = async (ctx, next) => {
+  try {
+    const options = ctx.request.query
+    const Cmodels = options.dynasty === 'tang' ? Tang : Song
+    let limitNumber = parseInt(options.size || 10)
+    let skipNumber = (parseInt(options.page || 1) - 1) * limitNumber
+    return await Cmodels.find({})
+      .limit(limitNumber)
+      .skip(skipNumber)
+      .exec().then(result => {
+        $util.sendSuccess(ctx, result)
+    })
+  } catch (error) {
+    return  $util.sendFailure(ctx, null, 'Opps, Something Error :' + error)
+  }
+}
+
 exports.getRandomPoetry = async (ctx, next) => {
   try {
     const options = ctx.request.body
