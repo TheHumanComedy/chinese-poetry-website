@@ -7,6 +7,8 @@ import Filters from './filters'
 /* ------------------------Vue Global Config------------------------------ */
 Vue.config.productionTip = false
 
+Vue.config.isProduction = process.env.NODE_ENV === 'production'
+
 const lang = Cookies.get('lang') || 'en'
 Vue.config.lang = lang
 

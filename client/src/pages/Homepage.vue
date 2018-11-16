@@ -12,7 +12,8 @@
     <div>
       <h2>{{ this.poetryTextList[0].title }}</h2>
       <pre>
-        <li class="verse-item" v-for="item in this.poetryTextList[0].paragraphs">
+        <li class="verse-item" :key="item._id"
+          v-for="item in this.poetryTextList[0].paragraphs">
           {{ item }}
         </li>
       </pre>
@@ -41,9 +42,9 @@ export default {
   created() {
     const params = {
       dynasty: 'tang',
-      size: 10
+      size: 3
     }
-    this.$apis.poetry.getRandomPoetry(params).then(result => {
+    this.$apis.poetry.getMorePoetry(params).then(result => {
       this.poetryTextList = result
     })
   },
@@ -77,7 +78,7 @@ export default {
     color: $text-grey;
     margin: $font-medium auto;
   }
-  .verse-item{
+  .verse-item {
     list-style: none;
     line-height: 1rem;
   }
