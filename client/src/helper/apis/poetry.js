@@ -12,5 +12,8 @@ function composeApiPath(api) {
 export default {
   getMorePoetry(data) {
     return $ajax.get(composeApiPath('getMorePoetry'), data)
+  },
+  getPoetryById(data) {
+    return $ajax.get(composeApiPath('getPoetryById'), data)
   }
 }

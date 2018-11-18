@@ -23,6 +23,21 @@ exports.getMorePoetry = async (ctx, next) => {
   }
 }
 
+exports.getPoetryById = async (ctx, next) => {
+  try {
+    const options = ctx.request.query
+    const Cmodels = options.dynasty === 'tang' ? Tang : Song
+    const params = { _id: options._id }
+    const poetryBody = await Cmodels.findOne(params).exec()
+    console.log(poetryBody)
+    if (poetryBody) {
+      return $util.sendSuccess(ctx, poetryBody)
+    }
+  } catch (error) {
+    return  $util.sendFailure(ctx, null, 'Opps, Something Error :' + error)
+  }
+}
+
 exports.getRandomPoetry = async (ctx, next) => {
   try {
     const options = ctx.request.body

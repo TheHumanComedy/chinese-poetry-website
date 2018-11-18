@@ -11,7 +11,7 @@ export default [
   {
     path: '/',
     meta: {
-      title: 'Vue-cli Overall Example',
+      title: '诗文小札',
       ignoreAuth: true
     },
     component: resolve => require(['@pages/Homepage'], resolve)

@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import Advertisement from '@components/Advertisement'
 import metaMixin from '@mixins/metaMixin.js'
 
 export default {
@@ -50,7 +49,6 @@ export default {
   },
 
   components: {
-    Advertisement
   }
 }
 </script>

@@ -42,3 +42,6 @@ Vue.component('icon', Icon)
 
 import Arrow from '@components/icons/Arrow'
 Vue.component('arrow', Arrow)
+
+import Advertisement from '@components/Advertisement'
+Vue.component('Advertisement', Advertisement)

@@ -41,6 +41,8 @@ router.get('/index', async (ctx, next) => {
 
 router.get('/getMorePoetry', PoetryCtrl.getMorePoetry)
 
+router.get('/getPoetryById', PoetryCtrl.getPoetryById)
+
 router.get('/getRandomPoetry', PoetryCtrl.getRandomPoetry)
 
 router.post('/savePoetry', PoetryCtrl.savePoetry)
