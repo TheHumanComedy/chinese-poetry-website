@@ -15,5 +15,8 @@ export default {
   },
   getPoetryById(data) {
     return $ajax.get(composeApiPath('getPoetryById'), data)
+  },
+  getRandomPoetry(data) {
+    return $ajax.get(composeApiPath('getRandomPoetry'), data)
   }
 }

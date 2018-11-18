@@ -43,7 +43,7 @@ export default {
       dynasty: 'tang',
       size: 3
     }
-    this.$apis.poetry.getMorePoetry(params).then(result => {
+    this.$apis.poetry.getRandomPoetry(params).then(result => {
       this.poetryTextList = result
     })
   },

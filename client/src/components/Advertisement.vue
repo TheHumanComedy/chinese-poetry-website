@@ -81,4 +81,11 @@ export default {
     }
   }
 }
+
+@media (max-width: 768px) {
+  .advertisement-moudle{
+    width: 96%;
+    min-width: 320px; 
+  }
+}
 </style>

@@ -40,11 +40,11 @@ exports.getPoetryById = async (ctx, next) => {
 
 exports.getRandomPoetry = async (ctx, next) => {
   try {
-    const options = ctx.request.body
+    const options = ctx.request.query
     const Cmodels = options.dynasty === 'tang' ? Tang : Song
+    console.log(options)
     return await Cmodels.aggregate([
-      // { $match: { active: true } },
-      { $sample: { size: options.size || 10 } }
+      { $sample: { size: +options.size || 10 } }
     ]).then(async result => {
       console.log(result)
       $util.sendSuccess(ctx, result)
