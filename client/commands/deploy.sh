@@ -7,4 +7,5 @@ set -e
 yarn run build
 
 # 复制打出的包至 server/public.
-cp -R dist ./../server/public
+rm -rf ./../server/public/*
+cp -R dist/* ./../server/public/
