@@ -14,15 +14,14 @@ const getServiceWorker = () => {
 exports.RedisCache = async function(ctx, next) {
   const request = ctx.request
   const isRequestApi = request.url.indexOf('/api/') > -1
-  const isRequestSource = request.url.indexOf('/static/') > -1
 
-  console.log('request.url', request.url)
+  console.log(`current request.url is: ${request.url}`)
   if (request.url === '/service-worker.js') {
     ctx.body = global.serviceWorkerContent || getServiceWorker()
     return
   }
 
-  if (!isRequestApi && !isRequestSource) {
+  if (!isRequestApi) {
     if (global.indexPageContent) {
       ctx.body = global.indexPageContent
       return
