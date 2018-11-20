@@ -9,11 +9,11 @@
       <a href="/explore" class="find-more"><icon name="explore"></icon>发现更多</a>
       <a class="find-more" href="https://github.com/nicejade/awesome-vue-cli3-example" target="_blank" rel="noreferrer noopener"><icon name="github"></icon> GitHub 源码</a>
     </div>
-    <div>
-      <h2>{{ this.poetryTextList[0].title }}</h2>
+    <div v-if="poetryTextList.length > 0">
+      <h2>{{ poetryTextList[0].title }}</h2>
       <pre>
         <li class="verse-item" :key="item._id"
-          v-for="item in this.poetryTextList[0].paragraphs">
+          v-for="item in poetryTextList[0].paragraphs">
           {{ item }}
         </li>
       </pre>
@@ -43,8 +43,10 @@ export default {
       dynasty: 'tang',
       size: 3
     }
-    this.$apis.poetry.getRandomPoetry(params).then(result => {
+    this.$apis.poetry.getMorePoetry(params).then(result => {
       this.poetryTextList = result
+    }).catch(error => {
+      this.poetryTextList = []
     })
   },
 
