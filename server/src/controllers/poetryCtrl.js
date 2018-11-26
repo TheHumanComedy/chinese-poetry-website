@@ -28,11 +28,12 @@ exports.getPoetryById = async (ctx, next) => {
     const options = ctx.request.query
     const Cmodels = options.dynasty === 'tang' ? Tang : Song
     const params = { _id: options._id }
-    const poetryBody = await Cmodels.findOne(params).exec()
-    console.log(poetryBody)
-    if (poetryBody) {
+    const tangPoetry = await Cmodels.findOne(params).exec()
+    if (tangPoetry) {
       return $util.sendSuccess(ctx, poetryBody)
     }
+    const songPoetry = await Cmodels.findOne(params).exec()
+    return $util.sendSuccess(ctx, songPoetry)
   } catch (error) {
     return $util.sendFailure(ctx, null, 'Opps, Something Error :' + error)
   }
@@ -42,11 +43,9 @@ exports.getRandomPoetry = async (ctx, next) => {
   try {
     const options = ctx.request.query
     const Cmodels = options.dynasty === 'tang' ? Tang : Song
-    console.log(options)
     return await Cmodels.aggregate([
       { $sample: { size: +options.size || 10 } }
     ]).then(async result => {
-      console.log(result)
       $util.sendSuccess(ctx, result)
     })
   } catch (error) {
@@ -60,6 +59,7 @@ exports.searchPoetry = async (ctx, next) => {
     const Cmodels = options.dynasty === 'tang' ? Tang : Song
     let limitNumber = parseInt(options.size || 100)
     let skipNumber = (parseInt(options.page || 1) - 1) * limitNumber
+    limitNumber = Math.min(limitNumber, 300)
 
     const authorList = await Cmodels.find({ author: { $regex: options.keyword } })
       .limit(limitNumber)
