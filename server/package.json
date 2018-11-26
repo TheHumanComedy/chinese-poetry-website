@@ -56,7 +56,6 @@
     "koa2-cors": "^2.0.3",
     "lodash": "^4.11.1",
     "mongo-sanitize": "^1.0.0",
-    "mongoose": "^4.9.1",
     "nodemailer": "^4.0.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
