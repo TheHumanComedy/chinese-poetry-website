@@ -30,7 +30,7 @@ exports.getPoetryById = async (ctx, next) => {
     const params = { _id: options._id }
     const tangPoetry = await Cmodels.findOne(params).exec()
     if (tangPoetry) {
-      return $util.sendSuccess(ctx, poetryBody)
+      return $util.sendSuccess(ctx, tangPoetry)
     }
     const songPoetry = await Cmodels.findOne(params).exec()
     return $util.sendSuccess(ctx, songPoetry)
